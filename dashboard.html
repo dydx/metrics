@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<title>Telemetry Dashboard</title>
+	</head>
+	<body>
+		<h1>Memory Telemetry</h1>
+		<dl>
+			<dt>Total:</dt>
+			<dd id="total"></dd>
+		</dl>
+		<dl>
+			<dt>Free:</dt>
+			<dd id="free"></dd>
+		</dl>
+		<script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script>
+			var socket = io.connect('http://localhost:3000');
+			socket.on('connect', function onConnect() {
+				socket.on('ping',  function onPing(data) {
+					$('#total').text(data.total);
+					$('#free').text(data.free);
+				});
+			});
+		</script>
+	</body>
+</html>
